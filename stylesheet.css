@@ -1,0 +1,18 @@
+.timer-button {
+    padding: 10px;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.timer-button:hover {
+    background-color: #0096FF;
+}
+
+.menu-entry {
+    padding: 10px;
+}
+
+.menu-icon {
+    padding: 10px;
+    color: white;
+}
