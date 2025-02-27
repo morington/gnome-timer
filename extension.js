@@ -68,13 +68,13 @@ class TimerMenu extends PopupMenu.PopupMenu {
         let timerhbox = new St.BoxLayout({ vertical: false, x_expand: true });
 
         this._alarmIcon = new St.Icon({
-            gicon: Gio.icon_new_for_string('alarm-symbolic'),
+            gicon: this._fileIcon('timer'),
             icon_size: 16,
             style_class: 'menu-icon',
         });
 
         this._timerEntry = new St.Entry({
-            hint_text: _('Set Timer ...'),
+            hint_text: _('1h; 1m; 30s..'),
             can_focus: true,
             x_expand: true,
             style_class: 'menu-entry',
@@ -86,12 +86,20 @@ class TimerMenu extends PopupMenu.PopupMenu {
         return timerhbox;
     }
 
+    _fileIcon(iconName) {
+        let filePath = `/home/morington/.local/share/gnome-shell/extensions/timer@lbgracioso.net/icons/${iconName}.png`;
+        let file = Gio.File.new_for_path(filePath);
+        let icon = new Gio.FileIcon({ file: file });
+
+        return icon
+    }
+
     _createButtons() {
         let buttonshbox = new St.BoxLayout({ vertical: false, x_expand: true });
 
-        this._startButton = this._createButton('media-playback-start-symbolic');
-        this._pauseButton = this._createButton('media-playback-pause-symbolic');
-        this._stopButton = this._createButton('media-playback-stop-symbolic');
+        this._startButton = this._createButton('play');
+        this._pauseButton = this._createButton('pause');
+        this._stopButton = this._createButton('stop');
 
         buttonshbox.add_child(this._startButton);
         buttonshbox.add_child(this._pauseButton);
@@ -108,7 +116,7 @@ class TimerMenu extends PopupMenu.PopupMenu {
         });
 
         let icon = new St.Icon({
-            gicon: Gio.icon_new_for_string(iconName),
+            gicon: this._fileIcon(iconName),
             icon_size: 16,
         });
 
@@ -315,7 +323,7 @@ export default class TimerExtension extends Extension {
     }
 
     disable() {
-        if (this._indicator) {  
+        if (this._indicator) {
             this._indicator.destroy();
             this._indicator = null;
         }

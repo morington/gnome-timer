@@ -9,7 +9,8 @@
 }
 
 .menu-entry {
-    padding: 10px;
+    border-raidus: 3px;
+    padding: 5px;
 }
 
 .menu-icon {
